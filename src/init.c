@@ -6,16 +6,10 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 14:06:39 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/11 13:51:43 by omartela         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:58:21 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
-
-void	ft_init_error(char *s)
-{
-	printf("Error: %s \n", s);
-	exit(1);
-}
 
 void	ft_init_philo(t_philo *philo, t_program *program, int i)
 {
@@ -58,11 +52,11 @@ void	ft_init(t_program *program)
 	program->philo_dead = 0;
 	program->philos = malloc(program->no_philos * sizeof(t_philo));
 	if (!program->philos)
-		ft_init_error("Initializing array of philosophers structs failed");
+		ft_error("Initializing array of philosophers structs failed");
 	if (ft_init_mutexes(program))
 	{
 		free(program->philos);
-		ft_init_error("Initializing array of mutexes failed");
+		ft_error("Initializing array of mutexes failed");
 	}
 	while (i < program->no_philos)
 	{

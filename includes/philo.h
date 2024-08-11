@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:29:12 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/11 14:10:35 by omartela         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:57:33 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_program
 	int				all_full;
 	int				philo_dead;
 	int				no_meals;
+	int				error_exit;
 }	t_program;
 
 // parseinput.c
@@ -55,9 +56,9 @@ void	ft_parseinput(t_program *program, char **str, int ac);
 size_t	get_current_time(void);
 
 // init.c
+void	ft_init(t_program *program);
 
 // ft_cleanup.c
-void	ft_cleanup(t_program *program)
-
-
+void	ft_cleanup(t_program *program);
+void	ft_error(char *s);
 #endif
