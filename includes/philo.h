@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:29:12 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/09 14:27:11 by omartela         ###   ########.fr       */
+/*   Updated: 2024/08/11 14:10:35 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,9 @@ void	ft_parseinput(t_program *program, char **str, int ac);
 size_t	get_current_time(void);
 
 // init.c
+
+// ft_cleanup.c
+void	ft_cleanup(t_program *program)
+
 
 #endif

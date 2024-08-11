@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 14:06:39 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/09 14:42:31 by omartela         ###   ########.fr       */
+/*   Updated: 2024/08/11 13:51:43 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
@@ -17,26 +17,56 @@ void	ft_init_error(char *s)
 	exit(1);
 }
 
-void	ft_init_philo(t_program *program)
+void	ft_init_philo(t_philo *philo, t_program *program, int i)
 {
-
+	philo->program = program;
+	philo->l_fork = &program->forks[i];
+	philo->r_fork = &program->forks[(i + 1) % program->no_philos];
+	philo->id = i + 1;
+	philo->no_eaten = 0;
 }
 
-void	ft_init_philos(t_program *program)
+int	ft_init_mutexes(t_program *program)
 {
-	program->philos = malloc(program->no_philos * sizeof(t_philo));
-	if (!program->philos)
-		ft_init_error("Initializing array of philosophers structs failed");
-	ft_init_philo(program);
-}
+	int	i;
 
-void	ft_init_mutexes(t_program *program)
-{
-
+	if (pthread_mutex_init(&program->lock, NULL))
+		return (1);
+	i = 0;
+	while (i < program->no_philos)
+	{
+		if (pthread_mutex_init(&program->forks[i++], NULL))
+		{
+			while (i > 0)
+				pthread_mutex_destroy(&program->forks[--i]);
+			pthread_mutex_destroy(&program->lock);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
 void	ft_init(t_program *program)
 {
-	ft_init_philos(program);
-	ft_init_mutexes(program);
+	int	i;
+
+	i = 0;
+	program->start_time = get_current_time();
+	program->no_full = 0;
+	program->all_full = 0;
+	program->philo_dead = 0;
+	program->philos = malloc(program->no_philos * sizeof(t_philo));
+	if (!program->philos)
+		ft_init_error("Initializing array of philosophers structs failed");
+	if (ft_init_mutexes(program))
+	{
+		free(program->philos);
+		ft_init_error("Initializing array of mutexes failed");
+	}
+	while (i < program->no_philos)
+	{
+		ft_init_philo(&program->philos[i], program, i);
+		i++;
+	}
 }
