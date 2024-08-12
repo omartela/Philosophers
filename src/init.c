@@ -9,7 +9,7 @@
 /*   Updated: 2024/08/11 17:58:21 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "philo.h"
+#include "../includes/philo.h"
 
 void	ft_init_philo(t_philo *philo, t_program *program, int i)
 {

@@ -9,7 +9,7 @@
 /*   Updated: 2024/08/09 13:53:51 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "philo.h"
+#include "../includes/philo.h"
 
 void	ft_message(void)
 {

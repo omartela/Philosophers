@@ -58,7 +58,16 @@ size_t	get_current_time(void);
 // init.c
 void	ft_init(t_program *program);
 
-// ft_cleanup.c
+// cleanup.c
 void	ft_cleanup(t_program *program);
 void	ft_error(char *s);
+
+// simulation.c
+void	ft_start_simulation(t_program *program);
+void	ft_monitor_simulation(t_program *program);
+
+// mutexes.c
+void	lock_mutex(t_program *program, pthread_mutex_t *mutex);
+void	unlock_mutex(t_program *program, pthread_mutex_t *mutex);
+void	ft_routine(t_program *program);
 #endif

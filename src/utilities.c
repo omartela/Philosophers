@@ -9,7 +9,7 @@
 /*   Updated: 2024/08/08 13:40:41 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "philo.h"
+#include "../includes/philo.h"
 
 size_t	get_current_time(void)
 {

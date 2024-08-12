@@ -11,24 +11,6 @@
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
-void	lock_mutex(t_program *program, pthread_mutex_t *mutex)
-{
-	if (pthread_mutex_lock(mutex))
-	{
-		printf("Locking mutex failed");
-		program->error_exit = 1;
-	}
-}
-
-void	unlock_mutex(t_program *program, pthread_mutex_t *mutex)
-{
-	if (pthread_mutex_unlock(mutex))
-	{
-		printf("Unlocking mutex failed");
-		program->error_exit = 1;
-	}
-}
-
 int	check_conditions(t_program *program)
 {
 	int	philo_dead;
@@ -37,11 +19,11 @@ int	check_conditions(t_program *program)
 	// make lock because accessing shared resources
 	// lock and unlock can fail
 	// so make own function to handle locking and unlocking
-	lock_mutex(program, &program->lock);
+	pthread_mutex_lock(&program->lock);
 	philo_dead = program->philo_dead;
 	no_full = program->no_full;
 	error_exit = program->error_exit;
-	unlock_mutex(program, &program->lock);
+	pthread_mutex_lock(&program->lock);
 	if (philo_dead)
 		return (1);
 	if (no_full == program->no_philos)

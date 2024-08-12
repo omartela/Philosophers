@@ -17,5 +17,6 @@ int	main(int ac, char **argv)
 
 	memset(&program, 0, sizeof(t_program));
 	ft_parseinput(&program, argv, ac);
+	ft_start_simulation(&program);
 	return (0);
 }
