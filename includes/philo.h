@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:29:12 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/11 17:57:33 by omartela         ###   ########.fr       */
+/*   Updated: 2024/08/12 12:27:54 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	ft_parseinput(t_program *program, char **str, int ac);
 
 // utilities.c
 size_t	get_current_time(void);
+void	ft_print_lock(t_philo *philo, char *msg);
+void	ft_wait(t_philo *philo, size_t ms);
 
 // init.c
 void	ft_init(t_program *program);
@@ -66,8 +68,6 @@ void	ft_error(char *s);
 void	ft_start_simulation(t_program *program);
 void	ft_monitor_simulation(t_program *program);
 
-// mutexes.c
-void	lock_mutex(t_program *program, pthread_mutex_t *mutex);
-void	unlock_mutex(t_program *program, pthread_mutex_t *mutex);
-void	ft_routine(t_program *program);
+// routine.c
+void	ft_routine(t_philo *philo);
 #endif
