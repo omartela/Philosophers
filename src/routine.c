@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 14:28:08 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/13 13:20:36 by omartela         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:50:43 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -64,10 +64,11 @@ void	*ft_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	/// put some better condition than 1 maybe checking some flag from program struct
-	while (check_stop)
+	while (check_stop(philo))
 	{
 		ft_eat(philo);
 		ft_sleep(philo);
 		ft_print_lock(philo, "is thinking");
 	}
+	return (philo);
 }

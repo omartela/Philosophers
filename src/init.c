@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 14:06:39 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/13 13:07:15 by omartela         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:51:17 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -18,7 +18,6 @@ void	ft_init_philo(t_philo *philo, t_program *program, int i)
 	philo->r_fork = &program->forks[(i + 1) % program->no_philos];
 	philo->id = i + 1;
 	philo->no_eaten = 0;
-	philo->stop = 0;
 }
 
 int	ft_init_mutexes(t_program *program)
@@ -51,6 +50,7 @@ void	ft_init(t_program *program)
 	program->no_full = 0;
 	program->all_full = 0;
 	program->philo_dead = 0;
+	program->stop = 0;
 	program->philos = malloc(program->no_philos * sizeof(t_philo));
 	if (!program->philos)
 		ft_error("Initializing array of philosophers structs failed");
