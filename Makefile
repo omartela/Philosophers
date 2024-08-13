@@ -6,12 +6,18 @@
 #    By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/07 16:41:30 by omartela          #+#    #+#              #
-#    Updated: 2024/08/07 16:51:00 by omartela         ###   ########.fr        #
+#    Updated: 2024/08/13 12:40:34 by omartela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 CC = cc
 NAME = philo
-SRC = src/utilities.c
+SRC = src/main.c \
+	  src/utilities.c \
+	  src/cleanup.c \
+	  src/parseinput.c \
+	  src/routine.c \
+	  src/simulation.c \
+	  src/init.c
 
 OBJS = $(SRC:.c=.o)
 

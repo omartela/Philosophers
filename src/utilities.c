@@ -6,7 +6,7 @@
 /*   By: omartela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:39:33 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/12 12:26:50 by omartela         ###   ########.fr       */
+/*   Updated: 2024/08/13 12:37:02 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -17,11 +17,11 @@ void	ft_print_lock(t_philo *philo, char *msg)
 
 	pthread_mutex_lock(&philo->program->lock);
 	time = get_current_time() - philo->program->start_time;
-	printf("%d %d %s\n", time, philo->id, msg);
+	printf("%zu %d %s\n", time, philo->id, msg);
 	pthread_mutex_unlock(&philo->program->lock);
 }
 
-void	ft_wait(t_philo *philo, size_t ms)
+void	ft_wait(size_t ms)
 {
 	size_t	str;
 

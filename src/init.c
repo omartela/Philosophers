@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 14:06:39 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/11 17:58:21 by omartela         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:07:15 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -18,6 +18,7 @@ void	ft_init_philo(t_philo *philo, t_program *program, int i)
 	philo->r_fork = &program->forks[(i + 1) % program->no_philos];
 	philo->id = i + 1;
 	philo->no_eaten = 0;
+	philo->stop = 0;
 }
 
 int	ft_init_mutexes(t_program *program)
