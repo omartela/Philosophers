@@ -6,25 +6,48 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 14:12:13 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/13 13:27:19 by omartela         ###   ########.fr       */
+/*   Updated: 2024/08/15 22:09:28 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
+
+static void	ft_check_starvation(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->program->lock);
+	if (get_current_time() - philo->last_eat > philo->program->die_time)
+	{
+		printf("%zu, %d, has died\n", get_current_time(), philo->id);
+		philo->program->philo_dead = 1;
+	}
+	pthread_mutex_unlock(&philo->program->lock);
+}
+
+static void	ft_check_philos(t_program *program)
+{
+	int	i;
+
+	i = 0;
+	while (i < program->no_philos)
+		ft_check_starvation(&program->philos[i++]);
+}
 
 int	check_conditions(t_program *program)
 {
 	int	philo_dead;
 	int	no_full;
 	int	error_exit;
+	int	no_philos;
 
 	pthread_mutex_lock(&program->lock);
+	ft_check_philos(program);
 	philo_dead = program->philo_dead;
 	no_full = program->no_full;
 	error_exit = program->error_exit;
-	pthread_mutex_lock(&program->lock);
+	no_philos = program->no_philos;
+	pthread_mutex_unlock(&program->lock);
 	if (philo_dead)
 		return (1);
-	if (no_full == program->no_philos)
+	if (no_full == no_philos)
 		return (1);
 	if (error_exit)
 		return (1);
@@ -33,17 +56,13 @@ int	check_conditions(t_program *program)
 
 void	ft_monitor_simulation(t_program *program)
 {
-	while (1)
+	while (check_conditions(program))
 	{
-		if (check_conditions(program))
-		{
-			pthread_mutex_lock(&program->lock);
-			program->stop = 1;
-			pthread_mutex_unlock(&program->lock);
-			ft_join_threads(program);
-			ft_cleanup(program);
-			return ;
-		}
+		pthread_mutex_lock(&program->lock);
+		program->stop = 1;
+		pthread_mutex_unlock(&program->lock);
+		ft_join_threads(program);
+		ft_cleanup(program);
 	}
 }
 
@@ -54,11 +73,23 @@ void	ft_start_simulation(t_program *program)
 	i = 0;
 	while (i < program->no_philos)
 	{
-		if (pthread_create(&program->philos[i].t, NULL, \
-					&ft_routine, (void *)&program->philos[i]))
+		if (i % 2 == 0)
 		{
-			ft_cleanup(program);
-			ft_error("Failed to create thread");
+			if (pthread_create(&program->philos[i].t, NULL, \
+					&ft_routine, (void *)&program->philos[i]))
+			{
+				ft_cleanup(program);
+				ft_error("Failed to create thread");
+			}
+		}
+		if (i % 2 != 0)
+		{
+			if (pthread_create(&program->philos[i].t, NULL, \
+					&ft_routine, (void *)&program->philos[i]))
+			{
+				ft_cleanup(program);
+				ft_error("Failed to create thread");
+			}
 		}
 		i++;
 	}

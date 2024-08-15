@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 10:55:06 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/09 13:53:51 by omartela         ###   ########.fr       */
+/*   Updated: 2024/08/13 22:56:42 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -49,7 +49,7 @@ int	ft_str_to_int(char *str, int no_zero)
 
 void	ft_parseinput(t_program *program, char **str, int ac)
 {
-	if (ac < 5 || 6 > ac)
+	if (ac < 5 || ac > 6)
 		ft_message();
 	program->no_philos = ft_str_to_int(str[1], 1);
 	program->die_time = ft_str_to_int(str[2], 1);

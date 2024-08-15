@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 14:06:39 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/13 13:51:17 by omartela         ###   ########.fr       */
+/*   Updated: 2024/08/15 21:36:53 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -27,6 +27,9 @@ int	ft_init_mutexes(t_program *program)
 	if (pthread_mutex_init(&program->lock, NULL))
 		return (1);
 	i = 0;
+	program->forks = malloc(sizeof(pthread_mutex_t) * program->no_philos);
+	if (!program->forks)
+		return (1);
 	while (i < program->no_philos)
 	{
 		if (pthread_mutex_init(&program->forks[i++], NULL))
