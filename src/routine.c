@@ -36,7 +36,7 @@ static	void	ft_sleep(t_philo *philo)
 	ft_wait(philo->program->sleep_time);
 }
 
-int	check_stop(t_philo *philo)
+static int	ft_check_stop(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->program->lock);
 	if (philo->program->stop)
@@ -53,12 +53,10 @@ void	*ft_routine(void *arg)
 {
 	t_philo	*philo;
 
-	printf("routine before wait\n");
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
 		ft_wait(10);
-	printf("routine before while loop\n");
-	while (!check_stop(philo))
+	while (!ft_check_stop(philo))
 	{
 		printf("starting routine..\n");
 		ft_eat(philo);

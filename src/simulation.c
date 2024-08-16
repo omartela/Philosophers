@@ -34,7 +34,7 @@ static void	ft_check_philos(t_program *program)
 		ft_check_starvation(&program->philos[i++]);
 }
 
-static	int	check_conditions(t_program *program)
+static	int	ft_check_conditions(t_program *program)
 {
 	int	philo_dead;
 	int	no_full;
@@ -68,13 +68,16 @@ static	int	check_conditions(t_program *program)
 
 void	ft_monitor_simulation(t_program *program)
 {
-	while (check_conditions(program))
+	while (1)
 	{
-		pthread_mutex_lock(&program->lock);
-		program->stop = 1;
-		pthread_mutex_unlock(&program->lock);
-		ft_join_threads(program);
-		ft_cleanup(program);
+		if (!ft_check_conditions(program))
+		{
+			pthread_mutex_lock(&program->lock);
+			program->stop = 1;
+			pthread_mutex_unlock(&program->lock);
+			ft_join_threads(program);
+			ft_cleanup(program);
+		}
 	}
 }
 

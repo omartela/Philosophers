@@ -29,6 +29,7 @@ void	ft_join_threads(t_program *program)
 			ft_cleanup(program);
 			ft_error("Error when joining philo threads");
 		}
+		i++;
 	}
 }
 

@@ -6,7 +6,7 @@
 #    By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/07 16:41:30 by omartela          #+#    #+#              #
-#    Updated: 2024/08/13 22:52:58 by omartela         ###   ########.fr        #
+#    Updated: 2024/08/16 14:32:39 by omartela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 CC = cc
@@ -36,6 +36,7 @@ clean:
 	$(RM) $(OBJS)
 
 fclean:
+	$(RM) $(OBJS)
 	$(RM) $(NAME)
 
 re: fclean all
