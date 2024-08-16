@@ -18,6 +18,7 @@ void	ft_init_philo(t_philo *philo, t_program *program, int i)
 	philo->r_fork = &program->forks[(i + 1) % program->no_philos];
 	philo->id = i + 1;
 	philo->no_eaten = 0;
+	philo->last_eat = 0;
 }
 
 int	ft_init_mutexes(t_program *program)
@@ -32,11 +33,12 @@ int	ft_init_mutexes(t_program *program)
 		return (1);
 	while (i < program->no_philos)
 	{
-		if (pthread_mutex_init(&program->forks[i++], NULL))
+		if (pthread_mutex_init(&program->forks[i], NULL))
 		{
 			while (i > 0)
 				pthread_mutex_destroy(&program->forks[--i]);
 			pthread_mutex_destroy(&program->lock);
+			free(program->forks);
 			return (1);
 		}
 		i++;

@@ -19,5 +19,6 @@ int	main(int ac, char **argv)
 	ft_parseinput(&program, argv, ac);
 	ft_init(&program);
 	ft_start_simulation(&program);
+	ft_monitor_simulation(&program);
 	return (0);
 }

@@ -15,12 +15,12 @@ void	ft_message(void)
 {
 	printf("Program should take the following arguments: \n");
 	printf("Mandatory: Number of philosophers > 0 \n");
-	printf("Mandatory: The time when philosopher dies \
-		if he does not eat > 0 \n");
+	printf("Mandatory: The time when philosopher dies\
+	if he does not eat > 0 \n");
 	printf("Mandatory: The time it takes to philosopher eat > 0 \n");
 	printf("Mandatory: Time to sleep > 0 \n");
-	printf("Optional: Number of times each philosopher \
-			must eat to become full >= 0 \n");
+	printf("Optional: Number of times each philosopher\
+	must eat to become full >= 0 \n");
 	exit(1);
 }
 

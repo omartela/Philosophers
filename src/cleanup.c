@@ -41,4 +41,5 @@ void	ft_cleanup(t_program *program)
 		pthread_mutex_destroy(&program->forks[i++]);
 	pthread_mutex_destroy(&program->lock);
 	free(program->philos);
+	free(program->forks);
 }
