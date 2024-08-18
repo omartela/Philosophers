@@ -13,12 +13,15 @@
 
 static void	ft_check_starvation(t_philo *philo)
 {
+	size_t	time;
+
 	pthread_mutex_lock(&philo->program->lock);
 	if (philo->last_eat)
 	{
-		if (get_current_time() - philo->last_eat > philo->program->die_time)
+		time = get_current_time() - philo->program->start_time;
+		if (time - philo->last_eat > philo->program->die_time)
 		{
-			printf("%zu, %d, has died\n", get_current_time(), philo->id);
+			printf("%zu, %d, has died\n", time, philo->id);
 			philo->program->philo_dead = 1;
 		}
 	}
@@ -50,17 +53,23 @@ static	int	ft_check_conditions(t_program *program)
 	pthread_mutex_unlock(&program->lock);
 	if (philo_dead)
 	{
+		pthread_mutex_lock(&program->lock);
 		printf("philo dead \n");
+		pthread_mutex_unlock(&program->lock);
 		return (1);
 	}
 	if (no_full == no_philos)
 	{
+		pthread_mutex_lock(&program->lock);
 		printf("philos full \n");
+		pthread_mutex_unlock(&program->lock);
 		return (1);
 	}
 	if (error_exit)
 	{
+		pthread_mutex_lock(&program->lock);
 		printf("error_exit \n");
+		pthread_mutex_unlock(&program->lock);
 		return (1);
 	}
 	return (0);
@@ -70,21 +79,31 @@ void	ft_monitor_simulation(t_program *program)
 {
 	while (1)
 	{
-		if (!ft_check_conditions(program))
+		if (ft_check_conditions(program))
 		{
 			pthread_mutex_lock(&program->lock);
 			program->stop = 1;
 			pthread_mutex_unlock(&program->lock);
-			ft_join_threads(program);
-			ft_cleanup(program);
+			break;
 		}
 	}
+	ft_join_threads(program);
+	ft_cleanup(program);
 }
 
 void	ft_start_simulation(t_program *program)
 {
 	int	i;
 
+	program->start_time = get_current_time();
+	if (program->no_philos == 1)
+	{
+		printf("%zu, %d has taken a fork\n", get_current_time() - program->start_time, 1);
+		ft_wait(program->die_time);
+		printf("%zu, %d has died\n", get_current_time() - program->start_time, 1);
+		ft_cleanup(program);
+		exit(0);
+	}
 	i = 0;
 	while (i < program->no_philos)
 	{

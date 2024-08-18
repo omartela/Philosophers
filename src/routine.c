@@ -42,7 +42,6 @@ static int	ft_check_stop(t_philo *philo)
 	if (philo->program->stop)
 	{
 		pthread_mutex_unlock(&philo->program->lock);
-		printf("check stop returns 1 \n");
 		return (1);
 	}
 	pthread_mutex_unlock(&philo->program->lock);
@@ -56,12 +55,20 @@ void	*ft_routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
 		ft_wait(10);
-	while (!ft_check_stop(philo))
+	while (1)
 	{
-		printf("starting routine..\n");
-		ft_eat(philo);
-		ft_sleep(philo);
-		ft_print_lock(philo, "is thinking");
+		if (!ft_check_stop(philo))
+			ft_eat(philo);
+		else
+			break;
+		if (!ft_check_stop(philo))
+			ft_sleep(philo);
+		else
+			break;
+		if (!ft_check_stop(philo))
+			ft_print_lock(philo, "is thinking");
+		else
+			break;
 	}
 	return (philo);
 }
