@@ -16,7 +16,7 @@ static void	ft_check_starvation(t_philo *philo)
 	size_t	time;
 
 	pthread_mutex_lock(&philo->program->lock);
-	if (philo->last_eat)
+	if (philo->last_eat && philo->program->philo_dead != 1)
 	{
 		time = get_current_time() - philo->program->start_time;
 		if (time - philo->last_eat > philo->program->die_time)
@@ -52,12 +52,7 @@ static	int	ft_check_conditions(t_program *program)
 	no_philos = program->no_philos;
 	pthread_mutex_unlock(&program->lock);
 	if (philo_dead)
-	{
-		pthread_mutex_lock(&program->lock);
-		printf("philo dead \n");
-		pthread_mutex_unlock(&program->lock);
 		return (1);
-	}
 	if (no_full == no_philos)
 	{
 		pthread_mutex_lock(&program->lock);
@@ -99,7 +94,7 @@ void	ft_start_simulation(t_program *program)
 	if (program->no_philos == 1)
 	{
 		printf("%zu, %d has taken a fork\n", get_current_time() - program->start_time, 1);
-		ft_wait(program->die_time);
+		ft_wait(program->die_time, &program->philos[0]);
 		printf("%zu, %d has died\n", get_current_time() - program->start_time, 1);
 		ft_cleanup(program);
 		exit(0);

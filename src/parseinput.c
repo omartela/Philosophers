@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
-void	ft_message(void)
+static void	ft_message(void)
 {
 	printf("Program should take the following arguments: \n");
 	printf("Mandatory: Number of philosophers > 0 \n");
@@ -21,10 +21,9 @@ void	ft_message(void)
 	printf("Mandatory: Time to sleep > 0 \n");
 	printf("Optional: Number of times each philosopher\
 	must eat to become full >= 0 \n");
-	exit(1);
 }
 
-int	ft_str_to_int(char *str, int no_zero)
+static int	ft_str_to_int(char *str, int no_zero, int *error)
 {
 	long int	res;
 
@@ -33,30 +32,51 @@ int	ft_str_to_int(char *str, int no_zero)
 		|| *str == '\r' || *str == '\f' || *str == '\n')
 		++str;
 	if (*str == '-')
+	{
+		*error = 1;
 		ft_message();
+		return (1);
+	}
 	if (*str == '+')
 		++str;
 	while (*str >= '0' && *str <= '9')
 	{
 		res = res * 10 + *str++ - '0';
 		if (res > 2147483647)
+		{
 			ft_message();
+			*error = 1;
+			return (1);
+		}
 	}
 	if (*str || (no_zero && res == 0))
+	{
 		ft_message();
+		*error = 1;
+		return (1);
+	}
 	return ((int)res);
 }
 
-void	ft_parseinput(t_program *program, char **str, int ac)
+int	ft_parseinput(t_program *program, char **str, int ac)
 {
+	int	error;
+
+	error = 0;
 	if (ac < 5 || ac > 6)
+	{
 		ft_message();
-	program->no_philos = ft_str_to_int(str[1], 1);
-	program->die_time = ft_str_to_int(str[2], 1);
-	program->eat_time = ft_str_to_int(str[3], 1);
-	program->sleep_time = ft_str_to_int(str[4], 1);
+		return (1);
+	}
+	program->no_philos = ft_str_to_int(str[1], 1, &error);
+	program->die_time = ft_str_to_int(str[2], 1, &error);
+	program->eat_time = ft_str_to_int(str[3], 1, &error);
+	program->sleep_time = ft_str_to_int(str[4], 1, &error);
 	if (ac == 6)
-		program->no_meals = ft_str_to_int(str[5], 0);
+		program->no_meals = ft_str_to_int(str[5], 0, &error);
 	else
 		program->no_meals = -1;
+	if (error)
+		return (1);
+	return (0);
 }

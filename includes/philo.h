@@ -51,12 +51,13 @@ typedef struct s_program
 }	t_program;
 
 // parseinput.c
-void	ft_parseinput(t_program *program, char **str, int ac);
+int	ft_parseinput(t_program *program, char **str, int ac);
 
 // utilities.c
 size_t	get_current_time(void);
 void	ft_print_lock(t_philo *philo, char *msg);
-void	ft_wait(size_t ms);
+int		ft_wait(size_t ms, t_philo *philo);
+int		ft_check_stop(t_philo *philo);
 
 // init.c
 void	ft_init(t_program *program);
@@ -72,4 +73,5 @@ void	ft_monitor_simulation(t_program *program);
 
 // routine.c
 void	*ft_routine(void *arg);
+
 #endif

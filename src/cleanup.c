@@ -14,7 +14,6 @@
 void	ft_error(char *s)
 {
 	printf("Error: %s \n", s);
-	exit(1);
 }
 
 void	ft_join_threads(t_program *program)
