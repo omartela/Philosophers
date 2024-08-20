@@ -21,7 +21,7 @@ static void	ft_check_starvation(t_philo *philo)
 		time = get_current_time() - philo->program->start_time;
 		if (time - philo->last_eat > philo->program->die_time)
 		{
-			printf("%zu, %d, has died\n", time, philo->id);
+			printf("%zu %d has died\n", time, philo->id);
 			philo->program->philo_dead = 1;
 		}
 	}

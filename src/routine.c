@@ -21,7 +21,7 @@ static void	ft_eat(t_philo *philo)
 	ft_print_lock(philo, "has taken a fork");
 	pthread_mutex_lock(&philo->program->lock);
 	time = get_current_time() - philo->program->start_time;
-	printf("%zu, %d is eating\n", time, philo->id);
+	printf("%zu %d is eating\n", time, philo->id);
 	philo->last_eat = time;
 	pthread_mutex_unlock(&philo->program->lock);
 	ft_wait(philo->program->eat_time);
