@@ -54,9 +54,13 @@ void	*ft_routine(void *arg)
 {
 	t_philo	*philo;
 
+	// add separate case for only one philosopher because it should still be a thread.
 	philo = (t_philo *)arg;
-	if (philo->id % 2 == 0)
-		ft_wait(10, philo);
+	if (philo->id % 2 != 0)
+	{
+		ft_print_lock(philo, "is thinking");
+		ft_wait(philo->program->eat_time / 2, philo);
+	}
 	while (!ft_check_stop(philo))
 	{
 		if (ft_eat(philo))
