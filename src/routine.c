@@ -55,22 +55,8 @@ void	*ft_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->program->no_philos == 1)
-	{
-		pthread_mutex_lock(philo->l_fork);
-		printf("%zu, %d has taken a fork\n", get_current_time() - philo->program->start_time, 1);
-		ft_wait(philo->program->die_time, philo);
-		printf("%zu, %d has died\n", get_current_time() - philo->program->start_time, 1);
-		pthread_mutex_unlock(philo->l_fork);
-		return (philo);
-	}
-	if (philo->id % 2 != 0)
-	{
-		ft_print_lock(philo, "is thinking");
-		pthread_mutex_lock(&philo->program->lock);
-		ft_wait(philo->program->eat_time / 2, philo);
-		pthread_mutex_unlock(&philo->program->lock);
-	}
+	if (philo->id % 2 == 0)
+		ft_wait(10, philo);
 	while (!ft_check_stop(philo))
 	{
 		if (ft_eat(philo))

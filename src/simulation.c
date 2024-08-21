@@ -21,7 +21,7 @@ static void	ft_check_starvation(t_philo *philo)
 		time = get_current_time() - philo->program->start_time;
 		if (time - philo->last_eat > philo->program->die_time)
 		{
-			printf("%zu %d died\n", time, philo->id);
+			printf("%zu %d has died\n", time, philo->id);
 			philo->program->philo_dead = 1;
 		}
 	}
@@ -41,36 +41,45 @@ static	int	ft_check_conditions(t_program *program)
 {
 	int	philo_dead;
 	int	no_full;
-	int	no_meals;
+	int	error_exit;
 	int	no_philos;
 
 	ft_check_philos(program);
 	pthread_mutex_lock(&program->lock);
 	philo_dead = program->philo_dead;
 	no_full = program->no_full;
-	no_meals = program->no_meals;
+	error_exit = program->error_exit;
 	no_philos = program->no_philos;
 	pthread_mutex_unlock(&program->lock);
 	if (philo_dead)
 		return (1);
-	if (no_full == no_meals)
+	if (no_full == no_philos)
+	{
+		pthread_mutex_lock(&program->lock);
+		printf("philos full \n");
+		pthread_mutex_unlock(&program->lock);
 		return (1);
+	}
+	if (error_exit)
+	{
+		pthread_mutex_lock(&program->lock);
+		printf("error_exit \n");
+		pthread_mutex_unlock(&program->lock);
+		return (1);
+	}
 	return (0);
 }
 
 void	ft_monitor_simulation(t_program *program)
 {
-	if (program->no_philos != 1)
+	while (1)
 	{
-		while (1)
+		if (ft_check_conditions(program))
 		{
-			if (ft_check_conditions(program))
-			{
-				pthread_mutex_lock(&program->lock);
-				program->stop = 1;
-				pthread_mutex_unlock(&program->lock);
-				break;
-			}
+			pthread_mutex_lock(&program->lock);
+			program->stop = 1;
+			pthread_mutex_unlock(&program->lock);
+			break;
 		}
 	}
 	ft_join_threads(program);
@@ -82,6 +91,14 @@ void	ft_start_simulation(t_program *program)
 	int	i;
 
 	program->start_time = get_current_time();
+	if (program->no_philos == 1)
+	{
+		printf("%zu, %d has taken a fork\n", get_current_time() - program->start_time, 1);
+		ft_wait(program->die_time, &program->philos[0]);
+		printf("%zu, %d has died\n", get_current_time() - program->start_time, 1);
+		ft_cleanup(program);
+		exit(0);
+	}
 	i = 0;
 	while (i < program->no_philos)
 	{
