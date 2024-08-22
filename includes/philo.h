@@ -65,7 +65,7 @@ void	ft_init(t_program *program);
 // cleanup.c
 void	ft_cleanup(t_program *program);
 void	ft_error(char *s);
-void	ft_join_threads(t_program *program);
+void	ft_join_threads(t_program *program, int number);
 
 // simulation.c
 void	ft_start_simulation(t_program *program);

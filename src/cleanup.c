@@ -16,18 +16,15 @@ void	ft_error(char *s)
 	printf("Error: %s \n", s);
 }
 
-void	ft_join_threads(t_program *program)
+void	ft_join_threads(t_program *program, int number)
 {
 	int	i;
 
 	i = 0;
-	while (i < program->no_philos)
+	while (i < number)
 	{
 		if (pthread_join(program->philos[i].t, NULL))
-		{
-			ft_cleanup(program);
 			ft_error("Error when joining philo threads");
-		}
 		i++;
 	}
 }

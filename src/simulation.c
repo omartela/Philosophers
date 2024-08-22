@@ -68,7 +68,7 @@ void	ft_monitor_simulation(t_program *program)
 			break;
 		}
 	}
-	ft_join_threads(program);
+	ft_join_threads(program, program->no_philos);
 	ft_cleanup(program);
 }
 
@@ -82,6 +82,7 @@ void	ft_start_simulation(t_program *program)
 		printf("%zu, %d has taken a fork\n", get_current_time() - program->start_time, 1);
 		ft_wait(program->die_time, &program->philos[0]);
 		printf("%zu, %d has died\n", get_current_time() - program->start_time, 1);
+		ft_join_threads(program, 1);
 		ft_cleanup(program);
 	}
 	i = 0;
@@ -90,6 +91,7 @@ void	ft_start_simulation(t_program *program)
 		if (pthread_create(&program->philos[i].t, NULL, \
 			&ft_routine, (void *)&program->philos[i]))
 		{
+			ft_join_threads(program, i);
 			ft_cleanup(program);
 			ft_error("Failed to create thread");
 		}
