@@ -51,11 +51,11 @@ void	ft_init(t_program *program)
 	int	i;
 
 	i = 0;
-	program->start_time = get_current_time();
 	program->no_full = 0;
 	program->all_full = 0;
 	program->philo_dead = 0;
 	program->stop = 0;
+	program->start = 0;
 	program->philos = malloc(program->no_philos * sizeof(t_philo));
 	if (!program->philos)
 		ft_error("Initializing array of philosophers structs failed");

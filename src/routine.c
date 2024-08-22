@@ -11,6 +11,14 @@
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
+static void	ft_check_full(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->program->lock);
+	if (philo->program->no_meals == philo->no_eaten)
+		philo->program->no_full += 1;
+	pthread_mutex_unlock(&philo->program->lock);
+}
+
 static int	ft_eat(t_philo *philo)
 {
 	size_t	time;
@@ -36,6 +44,7 @@ static int	ft_eat(t_philo *philo)
 		return (1);
 	}
 	philo->no_eaten += 1;
+	ft_check_full(philo);
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
 	return (0);
@@ -63,6 +72,11 @@ void	*ft_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	while (1)
+	{
+		if (philo->program->start)
+			break;	
+	}
 	if (philo->program->no_philos == 1)
 		ft_one_philo(philo);
 	if (philo->id % 2 != 0)

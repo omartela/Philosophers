@@ -46,8 +46,8 @@ typedef struct s_program
 	int				all_full;
 	int				philo_dead;
 	int				no_meals;
-	int				error_exit;
 	int				stop;
+	int				start;
 }	t_program;
 
 // parseinput.c

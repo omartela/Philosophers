@@ -41,32 +41,18 @@ static	int	ft_check_conditions(t_program *program)
 {
 	int	philo_dead;
 	int	no_full;
-	int	error_exit;
 	int	no_philos;
 
 	ft_check_philos(program);
 	pthread_mutex_lock(&program->lock);
 	philo_dead = program->philo_dead;
 	no_full = program->no_full;
-	error_exit = program->error_exit;
 	no_philos = program->no_philos;
 	pthread_mutex_unlock(&program->lock);
 	if (philo_dead)
 		return (1);
 	if (no_full == no_philos)
-	{
-		pthread_mutex_lock(&program->lock);
-		printf("philos full \n");
-		pthread_mutex_unlock(&program->lock);
 		return (1);
-	}
-	if (error_exit)
-	{
-		pthread_mutex_lock(&program->lock);
-		printf("error_exit \n");
-		pthread_mutex_unlock(&program->lock);
-		return (1);
-	}
 	return (0);
 }
 
@@ -90,9 +76,9 @@ void	ft_start_simulation(t_program *program)
 {
 	int	i;
 
-	program->start_time = get_current_time();
 	if (program->no_philos == 1)
 	{
+		program->start_time = get_current_time();
 		printf("%zu, %d has taken a fork\n", get_current_time() - program->start_time, 1);
 		ft_wait(program->die_time, &program->philos[0]);
 		printf("%zu, %d has died\n", get_current_time() - program->start_time, 1);
@@ -109,4 +95,6 @@ void	ft_start_simulation(t_program *program)
 		}
 		i++;
 	}
+	program->start_time = get_current_time();
+	program->start = 1;
 }
