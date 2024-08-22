@@ -63,7 +63,6 @@ void 	ft_one_philo(t_philo *philo)
 	pthread_mutex_lock(philo->l_fork);
 	printf("%zu, %d has taken a fork\n", get_current_time() - philo->program->start_time, 1);
 	ft_wait(philo->program->die_time, &philo->program->philos[0]);
-	printf("%zu, %d has died\n", get_current_time() - philo->program->start_time, 1);
 	pthread_mutex_unlock(philo->l_fork);
 }
 
@@ -78,7 +77,10 @@ void	*ft_routine(void *arg)
 			break;	
 	}
 	if (philo->program->no_philos == 1)
+	{
 		ft_one_philo(philo);
+		return (philo);
+	}
 	if (philo->id % 2 != 0)
 	{
 		ft_print_lock(philo, "is thinking");

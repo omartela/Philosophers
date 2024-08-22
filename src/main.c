@@ -20,7 +20,6 @@ int	main(int ac, char **argv)
 		return (1);
 	ft_init(&program);
 	ft_start_simulation(&program);
-	if (program.no_philos > 1)
-		ft_monitor_simulation(&program);
+	ft_monitor_simulation(&program);
 	return (0);
 }
