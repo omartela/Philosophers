@@ -19,7 +19,7 @@ void	ft_print_lock(t_philo *philo, char *msg)
 	if (philo->program->stop)
 	{
 		pthread_mutex_unlock(&philo->program->lock);
-		return;
+		return ;
 	}
 	time = get_current_time() - philo->program->start_time;
 	printf("%zu %d %s\n", time, philo->id, msg);

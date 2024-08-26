@@ -30,6 +30,8 @@ static int	ft_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->program->lock);
 	if (philo->program->stop)
 	{
+		pthread_mutex_unlock(philo->l_fork);
+		pthread_mutex_unlock(philo->r_fork);
 		pthread_mutex_unlock(&philo->program->lock);
 		return (1);
 	}
@@ -50,7 +52,7 @@ static int	ft_eat(t_philo *philo)
 	return (0);
 }
 
-static	int	ft_sleep(t_philo *philo)
+static int	ft_sleep(t_philo *philo)
 {
 	ft_print_lock(philo, "is sleeping");
 	if (ft_wait(philo->program->sleep_time, philo))
@@ -58,7 +60,7 @@ static	int	ft_sleep(t_philo *philo)
 	return (0);
 }
 
-void 	ft_one_philo(t_philo *philo)
+void	ft_one_philo(t_philo *philo)
 {
 	pthread_mutex_lock(philo->l_fork);
 	printf("%zu, %d has taken a fork\n", get_current_time() - philo->program->start_time, 1);
@@ -71,11 +73,10 @@ void	*ft_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (1)
-	{
-		if (philo->program->start)
-			break;	
-	}
+	pthread_mutex_lock(&philo->program->lock);
+	while (!philo->program->start)
+		ft_wait(1, philo);
+	pthread_mutex_unlock(&philo->program->lock);
 	if (philo->program->no_philos == 1)
 	{
 		ft_one_philo(philo);

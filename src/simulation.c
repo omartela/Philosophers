@@ -77,6 +77,7 @@ void	ft_start_simulation(t_program *program)
 	int	i;
 
 	i = 0;
+	pthread_mutex_lock(&program->lock);
 	while (i < program->no_philos)
 	{
 		if (pthread_create(&program->philos[i].t, NULL, \
@@ -90,4 +91,5 @@ void	ft_start_simulation(t_program *program)
 	}
 	program->start_time = get_current_time();
 	program->start = 1;
+	pthread_mutex_unlock(&program->lock);
 }

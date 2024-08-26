@@ -51,7 +51,7 @@ typedef struct s_program
 }	t_program;
 
 // parseinput.c
-int	ft_parseinput(t_program *program, char **str, int ac);
+int		ft_parseinput(t_program *program, char **str, int ac);
 
 // utilities.c
 size_t	get_current_time(void);

@@ -23,8 +23,7 @@ void	ft_join_threads(t_program *program, int number)
 	i = 0;
 	while (i < number)
 	{
-		if (pthread_join(program->philos[i].t, NULL))
-			ft_error("Error when joining philo threads");
+		pthread_join(program->philos[i].t, NULL);
 		i++;
 	}
 }
