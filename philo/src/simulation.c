@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 14:12:13 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/16 10:35:46 by omartela         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:34:45 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -65,7 +65,7 @@ void	ft_monitor_simulation(t_program *program)
 			pthread_mutex_lock(&program->lock);
 			program->stop = 1;
 			pthread_mutex_unlock(&program->lock);
-			break;
+			break ;
 		}
 	}
 	ft_join_threads(program, program->no_philos);

@@ -18,7 +18,26 @@ static void	ft_message(void)
 	printf("Mandatory: The time when philosopher dies > 0 \n");
 	printf("Mandatory: The time it takes to philosopher eat > 0 \n");
 	printf("Mandatory: Time to sleep > 0 \n");
-	printf("Optional: Number of times each philosopher eats>= 0 \n");
+	printf("Optional: Number of times each philosopher eats >= 0 \n");
+}
+
+static char	*ft_trim_whitespace(char *str)
+{
+	while (*str == ' ' || *str == '\t' || *str == '\v'
+		|| *str == '\r' || *str == '\f' || *str == '\n')
+		++str;
+	return (str);
+}
+
+static int	ft_check_negative_sign(char *str, int *error)
+{
+	if (*str == '-')
+	{
+		*error = 1;
+		ft_message();
+		return (1);
+	}
+	return (0);
 }
 
 static int	ft_str_to_int(char *str, int no_zero, int *error)
@@ -26,15 +45,9 @@ static int	ft_str_to_int(char *str, int no_zero, int *error)
 	long int	res;
 
 	res = 0;
-	while (*str == ' ' || *str == '\t' || *str == '\v'
-		|| *str == '\r' || *str == '\f' || *str == '\n')
-		++str;
-	if (*str == '-')
-	{
-		*error = 1;
-		ft_message();
+	str = ft_trim_whitespace(str);
+	if (ft_check_negative_sign(str, error))
 		return (1);
-	}
 	if (*str == '+')
 		++str;
 	while (*str >= '0' && *str <= '9')

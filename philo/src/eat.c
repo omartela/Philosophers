@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 17:23:53 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/26 17:23:57 by omartela         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:35:18 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
