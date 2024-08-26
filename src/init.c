@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
-void	ft_init_philo(t_philo *philo, t_program *program, int i)
+static void	ft_init_philo(t_philo *philo, t_program *program, int i)
 {
 	philo->program = program;
 	philo->l_fork = &program->forks[i];
@@ -21,7 +21,7 @@ void	ft_init_philo(t_philo *philo, t_program *program, int i)
 	philo->last_eat = 0;
 }
 
-int	ft_init_mutexes(t_program *program)
+static int	ft_init_mutexes(t_program *program)
 {
 	int	i;
 

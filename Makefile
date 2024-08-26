@@ -17,12 +17,13 @@ SRC = src/main.c \
 	  src/parseinput.c \
 	  src/routine.c \
 	  src/simulation.c \
-	  src/init.c
+	  src/init.c \
+	  src/eat.c
 
 OBJS = $(SRC:.c=.o)
 
 INCLUDES = includes/
-CFLAGS = -g -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 
 all: $(NAME)
 

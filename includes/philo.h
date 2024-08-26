@@ -74,4 +74,6 @@ void	ft_monitor_simulation(t_program *program);
 // routine.c
 void	*ft_routine(void *arg);
 
+// eat.c
+int		ft_eat(t_philo *philo);
 #endif
