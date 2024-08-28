@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omartela <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/08 13:39:33 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/13 12:37:02 by omartela         ###   ########.fr       */
+/*   Created: 2024/08/28 12:50:58 by omartela          #+#    #+#             */
+/*   Updated: 2024/08/28 12:51:01 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
