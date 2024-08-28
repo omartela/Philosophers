@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 14:28:08 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/28 12:52:50 by omartela         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:59:37 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -21,7 +21,7 @@ static int	ft_sleep(t_philo *philo)
 
 static void	ft_one_philo(t_philo *philo)
 {
-	int	start_time;
+	size_t	start_time;
 
 	pthread_mutex_lock(philo->l_fork);
 	start_time = philo->program->start_time;
