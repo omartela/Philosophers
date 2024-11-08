@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
-static void	ft_check_starvation(t_philo *philo)
+static void	check_starvation(t_philo *philo)
 {
 	size_t	time;
 
@@ -28,22 +28,22 @@ static void	ft_check_starvation(t_philo *philo)
 	pthread_mutex_unlock(&philo->program->lock);
 }
 
-static void	ft_check_philos(t_program *program)
+static void	check_philos(t_program *program)
 {
 	int	i;
 
 	i = 0;
 	while (i < program->no_philos)
-		ft_check_starvation(&program->philos[i++]);
+		check_starvation(&program->philos[i++]);
 }
 
-static	int	ft_check_conditions(t_program *program)
+static	int	check_conditions(t_program *program)
 {
 	int	philo_dead;
 	int	no_full;
 	int	no_philos;
 
-	ft_check_philos(program);
+	check_philos(program);
 	pthread_mutex_lock(&program->lock);
 	philo_dead = program->philo_dead;
 	no_full = program->no_full;
@@ -56,11 +56,11 @@ static	int	ft_check_conditions(t_program *program)
 	return (0);
 }
 
-void	ft_monitor_simulation(t_program *program)
+void	monitor_simulation(t_program *program)
 {
 	while (1)
 	{
-		if (ft_check_conditions(program))
+		if (check_conditions(program))
 		{
 			pthread_mutex_lock(&program->lock);
 			program->stop = 1;
@@ -68,11 +68,11 @@ void	ft_monitor_simulation(t_program *program)
 			break ;
 		}
 	}
-	ft_join_threads(program, program->no_philos);
-	ft_cleanup(program);
+	join_threads(program, program->no_philos);
+	cleanup(program);
 }
 
-void	ft_start_simulation(t_program *program)
+void	start_simulation(t_program *program)
 {
 	int	i;
 
@@ -81,11 +81,11 @@ void	ft_start_simulation(t_program *program)
 	while (i < program->no_philos)
 	{
 		if (pthread_create(&program->philos[i].t, NULL, \
-			&ft_routine, (void *)&program->philos[i]))
+			&routine, (void *)&program->philos[i]))
 		{
-			ft_join_threads(program, i);
-			ft_cleanup(program);
-			ft_error("Failed to create thread");
+			join_threads(program, i);
+			cleanup(program);
+			error("Failed to create thread");
 		}
 		i++;
 	}

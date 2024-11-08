@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
-static void	ft_init_philo(t_philo *philo, t_program *program, int i)
+static void	init_philo(t_philo *philo, t_program *program, int i)
 {
 	philo->program = program;
 	philo->l_fork = &program->forks[i];
@@ -21,7 +21,7 @@ static void	ft_init_philo(t_philo *philo, t_program *program, int i)
 	philo->last_eat = 0;
 }
 
-static int	ft_init_mutexes(t_program *program)
+static int	init_mutexes(t_program *program)
 {
 	int	i;
 
@@ -46,27 +46,31 @@ static int	ft_init_mutexes(t_program *program)
 	return (0);
 }
 
-void	ft_init(t_program *program)
+int	init(t_program *program)
 {
 	int	i;
 
 	i = 0;
 	program->no_full = 0;
-	program->all_full = 0;
 	program->philo_dead = 0;
 	program->stop = 0;
 	program->start = 0;
 	program->philos = malloc(program->no_philos * sizeof(t_philo));
 	if (!program->philos)
-		ft_error("Initializing array of philosophers structs failed");
-	if (ft_init_mutexes(program))
+	{
+		error("Initializing array of philosophers structs failed");
+		return (1);
+	}
+	if (init_mutexes(program))
 	{
 		free(program->philos);
-		ft_error("Initializing array of mutexes failed");
+		error("Initializing array of mutexes failed");
+		return (1);
 	}
 	while (i < program->no_philos)
 	{
-		ft_init_philo(&program->philos[i], program, i);
+		init_philo(&program->philos[i], program, i);
 		i++;
 	}
+	return (0);
 }

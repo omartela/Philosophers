@@ -43,7 +43,6 @@ typedef struct s_program
 	size_t			sleep_time;
 	size_t			start_time;
 	int				no_full;
-	int				all_full;
 	int				philo_dead;
 	int				no_meals;
 	int				stop;
@@ -51,29 +50,29 @@ typedef struct s_program
 }	t_program;
 
 // parseinput.c
-int		ft_parseinput(t_program *program, char **str, int ac);
+int		parseinput(t_program *program, char **str, int ac);
 
 // utilities.c
 size_t	get_current_time(void);
-void	ft_print_lock(t_philo *philo, char *msg);
-int		ft_wait(size_t ms, t_philo *philo);
-int		ft_check_stop(t_philo *philo);
+void	print_lock(t_philo *philo, char *msg);
+int		wait(size_t ms, t_philo *philo);
+int		check_stop(t_philo *philo);
 
 // init.c
-void	ft_init(t_program *program);
+int		init(t_program *program);
 
 // cleanup.c
-void	ft_cleanup(t_program *program);
-void	ft_error(char *s);
-void	ft_join_threads(t_program *program, int number);
+void	cleanup(t_program *program);
+void	error(char *s);
+void	join_threads(t_program *program, int number);
 
 // simulation.c
-void	ft_start_simulation(t_program *program);
-void	ft_monitor_simulation(t_program *program);
+void	start_simulation(t_program *program);
+void	monitor_simulation(t_program *program);
 
 // routine.c
-void	*ft_routine(void *arg);
+void	*routine(void *arg);
 
 // eat.c
-int		ft_eat(t_philo *philo);
+int		eat(t_philo *philo);
 #endif

@@ -6,12 +6,12 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:50:58 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/28 12:51:01 by omartela         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:09:06 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
-void	ft_print_lock(t_philo *philo, char *msg)
+void	print_lock(t_philo *philo, char *msg)
 {
 	size_t	time;
 
@@ -26,7 +26,7 @@ void	ft_print_lock(t_philo *philo, char *msg)
 	pthread_mutex_unlock(&philo->program->lock);
 }
 
-int	ft_check_stop(t_philo *philo)
+int	check_stop(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->program->lock);
 	if (philo->program->stop)
@@ -38,7 +38,7 @@ int	ft_check_stop(t_philo *philo)
 	return (0);
 }
 
-int	ft_wait(size_t ms, t_philo *philo)
+int	wait(size_t ms, t_philo *philo)
 {
 	size_t	str;
 
@@ -46,7 +46,7 @@ int	ft_wait(size_t ms, t_philo *philo)
 	while ((get_current_time() - str) < ms)
 	{
 		usleep(500);
-		if (ft_check_stop(philo))
+		if (check_stop(philo))
 			return (1);
 	}
 	return (0);

@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
-void	ft_error(char *s)
+void	error(char *s)
 {
 	printf("Error: %s \n", s);
 }
 
-void	ft_join_threads(t_program *program, int number)
+void	join_threads(t_program *program, int number)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ void	ft_join_threads(t_program *program, int number)
 	}
 }
 
-void	ft_cleanup(t_program *program)
+void	cleanup(t_program *program)
 {
 	int	i;
 
