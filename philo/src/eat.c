@@ -21,20 +21,10 @@ static void	check_full(t_philo *philo)
 
 static int	grap_forks(t_philo *philo)
 {
-	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_lock(philo->l_fork);
-		print_lock(philo, "has taken a fork");
-		pthread_mutex_lock(philo->r_fork);
-		print_lock(philo, "has taken a fork");
-	}
-	else
-	{
-		pthread_mutex_lock(philo->r_fork);
-		print_lock(philo, "has taken a fork");
-		pthread_mutex_lock(philo->l_fork);
-		print_lock(philo, "has taken a fork");
-	}
+	pthread_mutex_lock(philo->l_fork);
+	print_lock(philo, "has taken a fork");
+	pthread_mutex_lock(philo->r_fork);
+	print_lock(philo, "has taken a fork");
 	if (check_stop(philo))
 	{
 		pthread_mutex_unlock(philo->l_fork);
