@@ -18,7 +18,7 @@ static void	message(void)
 	printf("Mandatory: The time when philosopher dies > 0 \n");
 	printf("Mandatory: The time it takes to philosopher eat > 0 \n");
 	printf("Mandatory: Time to sleep > 0 \n");
-	printf("Optional: Number of times each philosopher eats >= 0 \n");
+	printf("Optional: Number of times each philosopher eats > 0 \n");
 }
 
 static char	*trim_whitespace(char *str)
@@ -40,7 +40,7 @@ static int	check_negative_sign(char *str, int *error)
 	return (0);
 }
 
-static int	str_to_int(char *str, int no_zero, int *error)
+static int	str_to_int(char *str, int *error)
 {
 	long int	res;
 
@@ -60,7 +60,7 @@ static int	str_to_int(char *str, int no_zero, int *error)
 			return (1);
 		}
 	}
-	if (*str || (no_zero && res == 0))
+	if (*str || res == 0)
 	{
 		message();
 		*error = 1;
@@ -79,12 +79,12 @@ int	parseinput(t_program *program, char **str, int ac)
 		message();
 		return (1);
 	}
-	program->no_philos = str_to_int(str[1], 1, &error);
-	program->die_time = str_to_int(str[2], 1, &error);
-	program->eat_time = str_to_int(str[3], 1, &error);
-	program->sleep_time = str_to_int(str[4], 1, &error);
+	program->no_philos = str_to_int(str[1], &error);
+	program->die_time = str_to_int(str[2], &error);
+	program->eat_time = str_to_int(str[3], &error);
+	program->sleep_time = str_to_int(str[4], &error);
 	if (ac == 6)
-		program->no_meals = str_to_int(str[5], 0, &error);
+		program->no_meals = str_to_int(str[5], &error);
 	else
 		program->no_meals = -1;
 	if (error)

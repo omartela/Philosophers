@@ -21,10 +21,12 @@ static void	check_full(t_philo *philo)
 
 static int	grap_forks(t_philo *philo)
 {
+	if (check_stop(philo))
+		return (1);
 	pthread_mutex_lock(philo->l_fork);
-	print_lock(philo, "has taken a fork");
+	print_lock(philo, "has taken a fork", 0);
 	pthread_mutex_lock(philo->r_fork);
-	print_lock(philo, "has taken a fork");
+	print_lock(philo, "has taken a fork", 0);
 	if (check_stop(philo))
 	{
 		pthread_mutex_unlock(philo->l_fork);
@@ -40,7 +42,7 @@ int	eat(t_philo *philo)
 		return (1);
 	if (grap_forks(philo))
 		return (1);
-	print_lock(philo, "is eating");
+	print_lock(philo, "is eating", 0);
 	pthread_mutex_lock(&philo->program->lock);
 	philo->last_eat = get_current_time() - philo->program->start_time;
 	pthread_mutex_unlock(&philo->program->lock);

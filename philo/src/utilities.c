@@ -11,11 +11,17 @@
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
-void	print_lock(t_philo *philo, char *msg)
+void	print_lock(t_philo *philo, char *msg, int flag)
 {
 	size_t	time;
 
 	pthread_mutex_lock(&philo->program->lock);
+	if (flag)
+	{
+		philo->program->stop = 1;
+		time = get_current_time() - philo->program->start_time;
+		printf("%zu %d %s\n", time, philo->id, msg);
+	}
 	if (philo->program->stop)
 	{
 		pthread_mutex_unlock(&philo->program->lock);

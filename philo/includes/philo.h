@@ -54,7 +54,7 @@ int		parseinput(t_program *program, char **str, int ac);
 
 // utilities.c
 size_t	get_current_time(void);
-void	print_lock(t_philo *philo, char *msg);
+void	print_lock(t_philo *philo, char *msg, int flag);
 int		wait(size_t ms, t_philo *philo);
 int		check_stop(t_philo *philo);
 

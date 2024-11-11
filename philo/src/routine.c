@@ -13,7 +13,9 @@
 
 static int	philo_sleep(t_philo *philo)
 {
-	print_lock(philo, "is sleeping");
+	if (check_stop(philo))
+		return (1);
+	print_lock(philo, "is sleeping", 0);
 	if (wait(philo->program->sleep_time, philo))
 		return (1);
 	return (0);
@@ -37,12 +39,9 @@ static void	philo_wait(t_philo *philo)
 	pthread_mutex_lock(&philo->program->lock);
 	no_philos = philo->program->no_philos;
 	pthread_mutex_unlock(&philo->program->lock);
-	if (no_philos % 2 != 0)
-	{
-		if (philo->id % 2 != 0)
+	if (philo->id % 2 != 0)
 			wait(philo->program->eat_time / 2, philo);
-	}
-}
+} 
 
 void	*routine(void *arg)
 {
@@ -51,7 +50,7 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(&philo->program->lock);
 	while (!philo->program->start)
-		wait(1, philo);
+		usleep(1);
 	pthread_mutex_unlock(&philo->program->lock);
 	if (philo->program->no_philos == 1)
 	{
@@ -66,7 +65,7 @@ void	*routine(void *arg)
 		if (philo_sleep(philo))
 			break ;
 		if (!check_stop(philo))
-			print_lock(philo, "is thinking");
+			print_lock(philo, "is thinking", 0);
 		else
 			break ;
 	}
