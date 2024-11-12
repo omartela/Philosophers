@@ -16,16 +16,13 @@ static int	check_starvation(t_philo *philo)
 	size_t	time;
 
 	pthread_mutex_lock(&philo->program->lock);
-	if (philo->program->philo_dead != 1)
+	if (philo->program->stop != 1)
 	{
 		time = get_current_time() - philo->program->start_time;
 		if (time - philo->last_eat > philo->program->die_time)
 		{
 			pthread_mutex_unlock(&philo->program->lock);
 			print_lock(philo, "died", 1);
-			pthread_mutex_lock(&philo->program->lock);
-			philo->program->philo_dead = 1;
-			pthread_mutex_unlock(&philo->program->lock);
 			return (1);
 		}
 	}
@@ -48,19 +45,15 @@ static int	check_philos(t_program *program)
 
 static	int	check_conditions(t_program *program)
 {
-	int	philo_dead;
 	int	no_full;
 	int	no_philos;
 
 	if (check_philos(program))
 		return (1);
 	pthread_mutex_lock(&program->lock);
-	philo_dead = program->philo_dead;
 	no_full = program->no_full;
 	no_philos = program->no_philos;
 	pthread_mutex_unlock(&program->lock);
-	if (philo_dead)
-		return (1);
 	if (no_full == no_philos)
 	{
 		pthread_mutex_lock(&program->lock);

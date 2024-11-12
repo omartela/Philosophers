@@ -43,7 +43,6 @@ typedef struct s_program
 	size_t			sleep_time;
 	size_t			start_time;
 	int				no_full;
-	int				philo_dead;
 	int				no_meals;
 	int				stop;
 	int				start;

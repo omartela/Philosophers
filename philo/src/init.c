@@ -30,7 +30,10 @@ static int	init_mutexes(t_program *program)
 	i = 0;
 	program->forks = malloc(sizeof(pthread_mutex_t) * program->no_philos);
 	if (!program->forks)
+	{
+		pthread_mutex_destroy(&program->lock);
 		return (1);
+	}
 	while (i < program->no_philos)
 	{
 		if (pthread_mutex_init(&program->forks[i], NULL))
@@ -52,7 +55,6 @@ int	init(t_program *program)
 
 	i = 0;
 	program->no_full = 0;
-	program->philo_dead = 0;
 	program->stop = 0;
 	program->start = 0;
 	program->philos = malloc(program->no_philos * sizeof(t_philo));

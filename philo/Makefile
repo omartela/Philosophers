@@ -22,6 +22,8 @@ SRC = src/main.c \
 
 OBJS = $(SRC:.c=.o)
 
+.SECONDARY: $(OBJS)
+
 INCLUDES = includes/
 CFLAGS = -Wall -Werror -Wextra
 
@@ -34,11 +36,11 @@ $(NAME): $(OBJS)
 	$(CC) $(OBJS) -o $(NAME)
 
 clean:
-	$(RM) $(OBJS)
+	rm -f $(OBJS)
 
 fclean:
-	$(RM) $(OBJS)
-	$(RM) $(NAME)
+	rm -f $(OBJS)
+	rm -f $(NAME)
 
 re: fclean all
 
