@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 14:12:13 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/26 17:34:45 by omartela         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:31:44 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -77,7 +77,7 @@ void	monitor_simulation(t_program *program)
 	{
 		if (check_conditions(program))
 		{
-			break	;
+			break ;
 		}
 	}
 	join_threads(program, program->no_philos);

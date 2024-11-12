@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 14:28:08 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/28 14:59:37 by omartela         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:32:11 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -40,8 +40,8 @@ static void	philo_wait(t_philo *philo)
 	no_philos = philo->program->no_philos;
 	pthread_mutex_unlock(&philo->program->lock);
 	if (philo->id % 2 != 0)
-			wait(philo->program->eat_time / 2, philo);
-} 
+		wait(philo->program->eat_time / 2, philo);
+}
 
 void	*routine(void *arg)
 {
