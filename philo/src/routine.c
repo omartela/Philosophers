@@ -34,13 +34,11 @@ static void	one_philo(t_philo *philo)
 
 static void	philo_wait(t_philo *philo)
 {
-	int	no_philos;
-
-	pthread_mutex_lock(&philo->program->lock);
-	no_philos = philo->program->no_philos;
-	pthread_mutex_unlock(&philo->program->lock);
 	if (philo->id % 2 != 0)
+	{
+		print_lock(philo, "is thinking", 0);
 		wait(philo->program->eat_time / 2, philo);
+	}
 }
 
 void	*routine(void *arg)
