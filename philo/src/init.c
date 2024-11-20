@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 14:06:39 by omartela          #+#    #+#             */
-/*   Updated: 2024/08/15 21:36:53 by omartela         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:05:49 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -17,7 +17,7 @@ static void	init_philo(t_philo *philo, t_program *program, int i)
 	if (i == 3)
 	{
 		philo->r_fork = &program->forks[i];
-		philo->l_fork = &program->forks[(i + 1) % program->no_philos];	
+		philo->l_fork = &program->forks[(i + 1) % program->no_philos];
 	}
 	else
 	{
