@@ -14,16 +14,8 @@
 static void	init_philo(t_philo *philo, t_program *program, int i)
 {
 	philo->program = program;
-	if (i == 3)
-	{
-		philo->r_fork = &program->forks[i];
-		philo->l_fork = &program->forks[(i + 1) % program->no_philos];
-	}
-	else
-	{
-		philo->l_fork = &program->forks[i];
-		philo->r_fork = &program->forks[(i + 1) % program->no_philos];
-	}
+	philo->l_fork = &program->forks[i];
+	philo->r_fork = &program->forks[(i + 1) % program->no_philos];
 	philo->id = i + 1;
 	philo->no_eaten = 0;
 	philo->last_eat = 0;
